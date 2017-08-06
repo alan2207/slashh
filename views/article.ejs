@@ -1,0 +1,64 @@
+<% include ./partials/head %>
+
+<h1 class="center-align"><%= article.title %></h1>
+<h6 class="left">Written by: <%= article.author %></h6>
+<h6 class="right"><%= article.date %></h6>
+<div style="clear: both;"></div>
+<hr>
+<div><%- article.body %></div>
+<hr>
+<% if(user && user.username === article.author) { %>
+    <a class="btn" href="/articles/edit/<%= article._id %>"><i class="material-icons">mode_edit</i> Edit</a>
+    <a class="btn red accent-3 delete-article" href="#", data-id=<%= article._id %>><i class="material-icons">delete</i> Delete</a>
+    <hr>
+<% } %>
+
+<div>
+        <% for(var i = 0; i < article.tags.length; i++) { %>
+            <a href="/articles/tag/search/<%= article.tags[i] %>" >
+            <div class="chip">
+                <%= article.tags[i] %>
+            </div>
+            </a>
+        <% } %>
+</div>
+
+<h5><%= article.comments.length %> Comments:</h5>
+<hr>
+
+<% for(var i = 0; i < article.comments.length; i++) { %>
+    <div class="comment card ">
+        <h6 class="left"><%= article.comments[i].author %>:</h6>
+        <h6 class="right"><%= article.comments[i].date %></h6>
+        <div style="clear: both;">
+            <%- article.comments[i].content %>
+        </div>
+    </div>
+<% } %>
+
+
+<% if(user) { %>  
+<a class="blue-grey darken-3 btn" href="#modal1">Add Comment</a>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+      <h3 class="center-align">Add Comment</h3>
+    <div class="row">
+        <form method="POST" action="/articles/addcomment/<%= article._id %>">
+            <div class="row">
+            <div class="input-field col s6 offset-s3">
+                <textarea id="body" name="body" type="text" class="materialize-textarea"></textarea>
+            </div>
+            </div>
+            <div class="row">
+            <div class="col s6 offset-s3 center-align">
+                <button action="submit" Class="blue-grey darken-3 btn-large">Add Comment</button>
+            </div>
+            </div>
+        </form>
+    </div>
+  </div>
+<% } %>
+
+
+<% include ./partials/foot %>

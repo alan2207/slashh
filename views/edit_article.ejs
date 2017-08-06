@@ -1,0 +1,27 @@
+<% include ./partials/head %>
+
+<h2 class="center-align">Edit </h2>
+<div class="row">
+  <form method="POST" action="/articles/edit/<%= article._id %>">
+    <div class="row">
+      <div class="input-field col s6 offset-s3">
+        <input id="title" name="title" type="text" class="validate" value=<%= article.title %> />
+        <label for="title">Title</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s6 offset-s3">
+        <textarea id="body" name="body" type="text" class="materialize-textarea"><%= article.body %></textarea>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s6 offset-s3 center-align">
+        <button action="submit" Class="btn-large">Edit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<% include ./partials/foot %>

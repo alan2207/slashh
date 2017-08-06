@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></ Blog ></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/bower_components/materialize/dist/css/materialize.min.css">
+    <link rel="stylesheet" href="/bower_components/simplemde/dist/simplemde.min.css">
+    <link rel="stylesheet" href="/bower_components/highlightjs/styles/atom-one-dark.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    
+
+
+
+<% include ./navbar %>
+
+
+<div class="row search-form">
+<div class="col s12">
+  <form method="POST" action="/articles/search">
+  <div class="input-field inline">
+    <input required id="term" name="term" type="text" class="validate" placeholder="search">
+  </div>
+  <button action="submit" Class="blue-grey darken-3 btn">Search</button>
+</form>
+</div>
+</div>
+
+
+<main>
+    
+    <div class="container"><br>
+    <div class="light-blue-text darken-4-text center-align" >
+    <%- messages() %>
+    </div>
+    
+    <% if(typeof errors == 'object' && errors.length) { %>
+      <% for(var i = 0; i < errors.length; i++) { %>
+        <div class="row">
+          <div class="col s6 offset-s3 red lighten-4 red-text darken-4-text"><i class="material-icons"> info</i><%= errors[i].msg %></div>
+        </div>
+      <% } %>
+    <% } %>
+    
+      
