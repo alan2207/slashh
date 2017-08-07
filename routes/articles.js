@@ -29,8 +29,8 @@ router.get('/myarticles', ensureAuthenticated, function(req, res) {
 
 
 // searching route by title substring:
-router.post('/search', function(req, res) {
-    var term = req.body.term.toLowerCase();
+router.get('/search', function(req, res) {
+    var term = req.query.term.toLowerCase();
     
     var regex = new RegExp(term,"gi");
 
@@ -39,7 +39,7 @@ router.post('/search', function(req, res) {
             .then((articles) => {
                     res.render('articles', {
                     articles: articles,
-                    title: 'Search results for: ' + term
+                    title: 'Search results for "' + term + '"'
                 })
             })
 })
@@ -52,7 +52,7 @@ router.get('/tag/search/:tag', function(req, res) {
             .then((articles) => {
                 res.render('articles', {
                     articles: articles,
-                    title: 'Search results for ' + tag + ' tag'
+                    title: 'Search results for "' + tag + '" tag'
                 })
             })
 })
