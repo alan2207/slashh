@@ -19,6 +19,7 @@ router.get('/add', ensureAuthenticated, function(req, res) {
 router.get('/myarticles', ensureAuthenticated, function(req, res) {
     
     Article.find({author: req.user.username})
+            .sort({_id: -1})
         .then((articles) => {
             res.render('articles', {
                 articles: articles,
@@ -36,6 +37,7 @@ router.get('/search', function(req, res) {
 
     
     Article.find({title: {$regex: regex}})
+            .sort({_id: -1})
             .then((articles) => {
                     res.render('articles', {
                     articles: articles,
@@ -49,6 +51,7 @@ router.get('/tag/search/:tag', function(req, res) {
     var tag = req.params.tag;
 
     Article.find({tags: {$in: [tag]}})
+            .sort({_id: -1})
             .then((articles) => {
                 res.render('articles', {
                     articles: articles,
@@ -86,7 +89,7 @@ router.post('/add', function(req, res) {
             tags: req.body.tags.split(',').map((tag) => tag.toLowerCase()),
             author: req.user.username,
             body: marked(req.body.body, {sanitize: true}),
-            date: moment().format('MMMM Do YYYY, h:mm:ss a')
+            date: moment().format('MMMM Do YYYY')
         });
         article.save()
         .then(() => {
@@ -119,7 +122,6 @@ router.get('/edit/:id', ensureAuthenticated, function(req, res) {
 
 router.post('/edit/:id', function(req, res) {
     var article = {
-        title: req.body.title,
         body: req.body.body
     }
     Article.findByIdAndUpdate(req.params.id, article)

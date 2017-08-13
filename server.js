@@ -95,15 +95,15 @@ app.get('*', function(req, res, next) {
 
 
 app.get('/', function(req, res) {
-    Article.find({}, function(err, articles) {
-        if(err) {
-            console.log(err);
-        }
-        res.render('articles', {
-            title: 'All Articles',
-            articles: articles,
+
+  Article.find({})
+         .sort({_id: -1})
+         .then((articles) => {
+            res.render('articles', {
+             title: 'All Articles',
+             articles: articles,
         });
-    });
+  })
 });
 
 app.use('/articles', require('./routes/articles'));
