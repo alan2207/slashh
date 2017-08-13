@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server"
+    "start": "node server",
+    "install": "bower install"
   },
   "author": "alan2207",
   "license": "ISC",
